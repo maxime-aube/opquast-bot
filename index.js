@@ -1,10 +1,10 @@
 const { Client, Intents } = require('discord.js');
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const auth = require('./auth.json');
 
-const token = 'OTEyNzkyMDc5NDg1MjQ3NTU5.YZ1F3g.ssUkEcYq-tMh9sVHUgwdDjRxjT8';
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS] });
 const commands = [{
     name: 'opquast',
-    description: 'Replies with Pong!'
+    description: 'Affiche une règle Opquast'
 }];
 
-bot.login(token);
+bot.login(auth.token);
