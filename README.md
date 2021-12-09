@@ -1,5 +1,6 @@
-# opquast-bot
-Dépôt du serveur Node du bot Discord pédagogique (non officiel) pour la certification Opquast qualité web.
+# OpquastBot
+Projet de bot Discord pédagogique pour la certification Opquast qualité web (non officiel).\
+Dépôt pour le serveur Node.js + instructions d'installation.
 
 ## Configuration
 - node v17.2.0+
