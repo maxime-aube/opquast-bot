@@ -1,5 +1,7 @@
-auth.json
+config.json
+node_modules
 
+## Auto generated
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm,node
 
@@ -240,4 +242,3 @@ fabric.properties
 .idea/codestream.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/webstorm,node
-
