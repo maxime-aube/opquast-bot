@@ -6,9 +6,9 @@ const { token } = require('./config.json');
 /* define client, aka the bot */
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 /* define bot commands */
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     // Set a new item in the Collection
@@ -16,25 +16,31 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
-/* events */
-
-client.once('ready', () => {
-    console.log('ready to Opquast!');
-});
-
-client.on('interactionCreate', async interaction => {
-    if (!interaction.isCommand()) return;
-
-    const { commandName } = interaction;
-
-    if (commandName === 'opquast') {
-        await interaction.reply();
-    } else if (commandName === 'server') {
-        await interaction.reply(` Serveur de dev '${interaction.guild.name}'\ncréé le ${interaction.guild.createdAt.toLocaleDateString('fr-FR')}\nQuoi d'autre ?`);
-    } else if (commandName === 'user') {
-        await interaction.reply(`ton tag: ${interaction.user.tag}\nton id: ${interaction.user.id}\nde rien`);
+/* define events */
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+for (const file of eventFiles) {
+    const event = require(`./events/${file}`);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args));
+    } else {
+        client.on(event.name, (...args) => event.execute(...args));
     }
-});
+}
+//
+// client.on('interactionCreate', async interaction => {
+//
+//     if (!interaction.isCommand()) return;
+//     const { commandName } = interaction;
+//     const command = client.commands.get(interaction.commandName);
+//     if (!command) return;
+//
+//     try {
+//         await command.execute(interaction);
+//     } catch (error) {
+//         await interaction.reply({ content: 'Whoops ! la commande a échoué 🤷', ephemeral: true });
+//         console.error(error);
+//     }
+// });
 
 /* do the login */
 client.login(token);
