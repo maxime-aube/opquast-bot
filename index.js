@@ -26,21 +26,6 @@ for (const file of eventFiles) {
         client.on(event.name, (...args) => event.execute(...args));
     }
 }
-//
-// client.on('interactionCreate', async interaction => {
-//
-//     if (!interaction.isCommand()) return;
-//     const { commandName } = interaction;
-//     const command = client.commands.get(interaction.commandName);
-//     if (!command) return;
-//
-//     try {
-//         await command.execute(interaction);
-//     } catch (error) {
-//         await interaction.reply({ content: 'Whoops ! la commande a échoué 🤷', ephemeral: true });
-//         console.error(error);
-//     }
-// });
 
 /* do the login */
 client.login(token);
