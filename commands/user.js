@@ -5,6 +5,9 @@ module.exports = {
         .setName('user')
         .setDescription(`Infos de base sur l'utilisateur à l'origine de la commande`),
     async execute(interaction) {
-        await interaction.reply(`ton tag: ${interaction.user.tag}\nton id: ${interaction.user.id}\nde rien`);
+        await interaction.reply({
+            content: `ton tag: ${interaction.user.tag}\nton id: ${interaction.user.id}\nDe rien`,
+            ephemeral: true
+        });
     },
 };
