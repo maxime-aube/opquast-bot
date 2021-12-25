@@ -4,10 +4,12 @@ const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
 /* define client, aka the bot */
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+console.log('creating bot...');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
 client.commands = new Collection();
 
 /* define bot commands */
+console.log('defining bot commands...');
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
@@ -17,6 +19,7 @@ for (const file of commandFiles) {
 }
 
 /* define events */
+console.log('defining bot events...');
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
@@ -28,4 +31,5 @@ for (const file of eventFiles) {
 }
 
 /* do the login */
+console.log('logging into server...');
 client.login(token);
