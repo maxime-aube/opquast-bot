@@ -1,7 +1,7 @@
 /* import stuff section... */
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./config.json');
+const { token, channels } = require('./config.json');
 
 /* define client, aka the bot */
 console.log('creating bot...');
