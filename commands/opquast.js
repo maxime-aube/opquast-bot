@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const checklist = require("../checklist.min.json");
-const checklistThema = require("../checklist-thema.json");
+const {Publisher} = require("../Publisher");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -65,33 +64,11 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'rule') {           /* sub-commande pour afficher une règle par numéro */
             const ruleId = interaction.options.getInteger('number');
-            await interaction.reply({
-                content: getReplyContent(ruleId, lang)
-            });
+            await interaction.reply(Publisher.getFormatedMessage(ruleId, lang));
 
         } else if (interaction.options.getSubcommand() === 'random') {  /* sub-commande pour afficher une règle aléatoirement */
             const thema = interaction.options.getString('thème');
-
-            await interaction.reply({
-                content: getReplyContent(false, lang, thema)
-            });
+            await interaction.reply(Publisher.getFormatedMessage(false, lang, thema));
         }
     },
 };
-
-function getReplyContent(ruleId = 0,  lang = 'fr', thema = '') {
-
-    if (!ruleId && thema === '') {              /* full aléatoire */
-        ruleId = ((min = 1, max = 240) => { return Math.floor(Math.random() * (max - min + 1)) + min })();
-    } else if (!ruleId && thema !== '') {      /* choisir aléatoirement dans le thème donné */
-        ruleId = ((
-            min = parseInt(checklistThema[thema][0]),
-            max = parseInt(checklistThema[thema][checklistThema[thema].length - 1])
-        ) => {
-                return Math.floor(Math.random() * (max - min + 1)) + min }
-        )();
-    }
-
-    const rule = checklist[ruleId.toString()];
-    return `n°${ruleId} : ${rule.description[lang]}`;
-}

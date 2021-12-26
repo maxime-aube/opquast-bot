@@ -1,6 +1,6 @@
-const {channels} = require("../config.json");
-const scheduler = require("../Scheduler");
 const fs = require("fs");
+const {Scheduler} = require("../Scheduler");
+const {channels} = require("../config.json");
 
 module.exports = {
     name: 'ready',
@@ -12,11 +12,11 @@ module.exports = {
                 console.log(`Successfully loaded ${channel.name} channel !`);
 
                 /* schedule publications */
-                const schedule = new scheduler.Scheduler();
+                const schedule = new Scheduler();
                 const scheduleFiles = fs.readdirSync('./jobs').filter(file => file.endsWith('.js'));
                 for (const file of scheduleFiles) {
                     const job = require(`../jobs/${file}`);
-                    schedule.addJob(job.cronExpression, job.execute(channel), job.description);
+                    schedule.addJob(job, channel);
                 }
                 console.log(`${client.user.tag} is ready to Opquast !`);
             })

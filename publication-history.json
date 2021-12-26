@@ -1,0 +1,3 @@
+{
+  "0": "About key represents an Opquast rule by it's number. Values are how many times the rule has appeared in scheduled publications (zero/never if rule is unregistered)"
+}
