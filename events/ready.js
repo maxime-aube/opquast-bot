@@ -1,5 +1,5 @@
 const fs = require("fs");
-const {Scheduler} = require("../Scheduler");
+const {Scheduler} = require("../Class/Scheduler");
 const {channels} = require("../config.json");
 
 module.exports = {

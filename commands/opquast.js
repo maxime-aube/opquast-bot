@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {Publisher} = require("../Publisher");
+const {Publisher} = require("../Class/Publisher");
 
 module.exports = {
     data: new SlashCommandBuilder()
