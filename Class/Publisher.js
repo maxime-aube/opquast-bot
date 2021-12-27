@@ -25,11 +25,21 @@ class Publisher {
     }
 
     /**
-     * return random rule id with least publications
+     * return random unpublished rule id
      */
     static getUnusedRuleId() {
-        return this.getRandomRuleId();
-        // TODO récupérer un id de règle avec un compteur de publications à zéro. Si aucun (historique complet) -> appel clearHistory() et rappeler un id
+        const history = JSON.parse(fs.readFileSync('./publication-history.json', 'utf-8'));
+        let unusedRules = [];
+        for (let entry in history) {
+            if (history[entry] === 0) unusedRules.push(entry);
+        }
+        if (unusedRules.length === 0) {
+            this.clearHistory();
+            return this.getUnusedRuleId();
+        }
+        return unusedRules[((min = 0, max = (unusedRules.length - 1)) => {
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        })()];
     }
 
     /**
