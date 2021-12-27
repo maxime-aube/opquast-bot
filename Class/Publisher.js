@@ -1,4 +1,6 @@
 const fs = require("fs");
+const { MessageEmbed, MessageAttachment } = require('discord.js');
+const { checklistURL } = require('../config.json');
 const checklistThema = require("../checklist-thema.json");
 const checklist = require("../checklist.min.json");
 
@@ -50,10 +52,37 @@ class Publisher {
      * @returns {{content: string}}
      */
     static getFormatedMessage(ruleId = 0, lang = 'fr', thema = '') {
+
         if (!ruleId) ruleId = this.getRandomRuleId(thema);
         const rule = checklist[ruleId.toString()];
+        const embedFiles = {
+            // "thumbnail": new MessageAttachment('./asset/img/creative-commons.png'),
+            "image": new MessageAttachment('./asset/img/rule-sprite.svg'), /* todo : récupérer les icônes de catégories et convertir en png */
+            "footer": new MessageAttachment('./asset/img/opquast-favicon.png')
+        };
+        const embed = new MessageEmbed()
+            .setColor('#1c9b9c')
+            .setTitle(`${rule.description[lang]}`)
+            .setDescription(`${rule.thema[0][lang]}`)
+            .setURL(`${checklistURL[lang] + rule.slug[lang]}`)
+            // .setThumbnail('attachment://creative-commons.png')
+            .addField('\u200B', '\u200B')
+            .addField(`${lang === 'fr' ? 'Objectifs' : 'Goals'}`, 'Some value here')
+            .addField('\u200B', '\u200B')
+            // .addField('Steps', 'Some value here') /* todo ajouter steps */
+            .setImage('attachment://rule-sprite.svg')
+            .addField(`Licence`, 'Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)')
+            .setTimestamp()
+            .setFooter('Brought to you by OpquastBot·🎓', 'attachment://opquast-favicon.png');
+
         return {
-            content: `n°${ruleId} : ${rule.description[lang]}`
+            content: `Règle n°${rule.number}`,
+            embeds: [embed],
+            files: [
+                // embedFiles.thumbnail,
+                embedFiles.image,
+                embedFiles.footer
+            ]
         };
     }
 
