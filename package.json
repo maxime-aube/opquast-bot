@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js",
+    "clear-history": "node clear-publication-history.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
