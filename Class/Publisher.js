@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { MessageEmbed, MessageAttachment } = require('discord.js');
-const { checklistURL } = require('../config.json');
+const { checklistURL, themaSprites } = require('../opquast.json');
 const checklistThema = require("../checklist-thema.json");
 const checklist = require("../checklist.min.json");
 
@@ -71,6 +71,7 @@ class Publisher {
             .addField('\u200B', '\u200B')
             // .addField('Steps', 'Some value here') /* todo ajouter steps */
             .setImage('attachment://rule-sprite.svg')
+            .addField(`Credit`, 'Elie Sloïm, Laurent Denis et les contributeurs Opquast')
             .addField(`Licence`, 'Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)')
             .setTimestamp()
             .setFooter('Brought to you by OpquastBot·🎓', 'attachment://opquast-favicon.png');

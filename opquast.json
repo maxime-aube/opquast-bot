@@ -1,0 +1,23 @@
+{
+  "checklistURL": {
+    "fr": "https://checklists.opquast.com/fr/assurance-qualite-web/",
+    "en": "https://checklists.opquast.com/en/web-quality-assurance/",
+    "es": "https://checklists.opquast.com/es/web-calidad/"
+  },
+  "themaSprites": {
+    "content": "sprite-content.svg",
+    "Personal data": "sprite-personal-data.svg",
+    "E-Commerce": "sprite-e-commerce.svg",
+    "Forms": "sprite-forms.svg",
+    "Identification and contact": "sprite-identification-contact.svg",
+    "Images and media": "sprite-image-media.svg",
+    "Internationalization": "sprite-internationalization.svg",
+    "Links": "sprite-links.svg",
+    "Navigation": "sprite-navigation.svg",
+    "Newsletter": "sprite-newsletter.svg",
+    "Presentation": "sprite-presentation.svg",
+    "Security": "sprite-security.svg",
+    "Server and performances": "sprite-server-performance.svg",
+    "Structure and code": "sprite-structure-code.svg"
+  }
+}
