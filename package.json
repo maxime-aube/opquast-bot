@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "clear-history": "node clear-publication-history.js"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
     "@discordjs/rest": "^0.2.0-canary.0",
     "cron": "^1.8.2",
     "discord-api-types": "^0.25.2",
-    "discord.js": "^13.3.1"
+    "discord.js": "^13.3.1",
+    "nodemon": "^2.0.15"
   }
 }

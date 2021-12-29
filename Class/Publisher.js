@@ -63,7 +63,7 @@ class Publisher {
             .setColor('#229a9a')
             .setTitle(`${rule.number}) ${rule.description[lang]}`)
             .setThumbnail(`attachment://${themaSprites[rule.thema[0].en]}`)
-            .setDescription(`:memo: **${rule.thema[0][lang]}**`)    /*  todo gérer les thèmes vides en espagnol */
+            .setDescription(`:memo: **${rule.thema[0][lang] !== '' ? rule.thema[0][lang] : rule.thema[0].en}**`)
             .setURL(`${checklistURL[lang] + rule.slug[lang]}`)
             .addField(`${lang === 'fr' ? 'Objectifs' : 'Goals'}`, `‣ ${(rule.goal[lang].join('\n‣ '))}`)
             // .addField('Steps', 'Some value here') /* todo ajouter steps */
