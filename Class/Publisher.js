@@ -1,8 +1,8 @@
 const fs = require("fs");
 const { MessageEmbed, MessageAttachment } = require('discord.js');
-const { checklistURL, themaSprites } = require('../opquast.json');
-const checklistThema = require("../checklist-thema.json");
 const checklist = require("../checklist.min.json");
+const checklistThema = require("../checklist-thema.json");
+const { checklistURL, themaSprites } = require('../opquast.json');
 
 class Publisher {
 
@@ -11,8 +11,8 @@ class Publisher {
     /**
      * return random rule id, optionally within given thema
      */
-    static getRandomRuleId(thema = '') {
-        if (thema === '') {
+    static getRandomRuleId(thema = null) {
+        if (thema === null) {
             /* full aléatoire */
             return ((min = 1, max = 240) => { return Math.floor(Math.random() * (max - min + 1)) + min })();
         } else {
@@ -51,37 +51,29 @@ class Publisher {
      * @param thema
      * @returns {{content: string}}
      */
-    static getFormatedMessage(ruleId = 0, lang = 'fr', thema = '') {
+    static getFormatedMessage(ruleId = false, lang = 'fr', theme = null) {
 
-        if (!ruleId) ruleId = this.getRandomRuleId(thema);
-        const rule = checklist[ruleId.toString()];
+        if (ruleId === false) ruleId = this.getRandomRuleId(theme);
+        const rule = checklist[ruleId];
         const embedFiles = {
-            // "thumbnail": new MessageAttachment('./asset/img/creative-commons.png'),
-            "image": new MessageAttachment('./asset/img/rule-sprite.svg'), /* todo : récupérer les icônes de catégories et convertir en png */
+            "thumbnail": new MessageAttachment(`./asset/img/${themaSprites[rule.thema[0].en]}`),
             "footer": new MessageAttachment('./asset/img/opquast-favicon.png')
         };
         const embed = new MessageEmbed()
-            .setColor('#1c9b9c')
-            .setTitle(`${rule.description[lang]}`)
-            .setDescription(`${rule.thema[0][lang]}`)
+            .setColor('#229a9a')
+            .setTitle(`${rule.number}) ${rule.description[lang]}`)
+            .setThumbnail(`attachment://${themaSprites[rule.thema[0].en]}`)
+            .setDescription(`:memo: **${rule.thema[0][lang]}**`)    /*  todo gérer les thèmes vides en espagnol */
             .setURL(`${checklistURL[lang] + rule.slug[lang]}`)
-            // .setThumbnail('attachment://creative-commons.png')
-            .addField('\u200B', '\u200B')
-            .addField(`${lang === 'fr' ? 'Objectifs' : 'Goals'}`, 'Some value here')
-            .addField('\u200B', '\u200B')
+            .addField(`${lang === 'fr' ? 'Objectifs' : 'Goals'}`, `‣ ${(rule.goal[lang].join('\n‣ '))}`)
             // .addField('Steps', 'Some value here') /* todo ajouter steps */
-            .setImage('attachment://rule-sprite.svg')
-            .addField(`Credit`, 'Elie Sloïm, Laurent Denis et les contributeurs Opquast')
-            .addField(`Licence`, 'Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)')
             .setTimestamp()
-            .setFooter('Brought to you by OpquastBot·🎓', 'attachment://opquast-favicon.png');
+            .setFooter(`Brought to you by OpquastBot·🎓\nCredit : Elie Sloïm, Laurent Denis and Opquast contributors\nLicence : Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)`, 'attachment://opquast-favicon.png');
 
         return {
-            content: `Règle n°${rule.number}`,
             embeds: [embed],
             files: [
-                // embedFiles.thumbnail,
-                embedFiles.image,
+                embedFiles.thumbnail,
                 embedFiles.footer
             ]
         };
