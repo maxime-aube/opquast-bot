@@ -4,20 +4,20 @@ const {Publisher} = require("../Class/Publisher");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('opquast')
-        .setDescription('Publie des règles Opquast.')
+        .setDescription('Poste des règles Opquast.')
         .addSubcommand(subcommand =>
             subcommand
                 .setName('rule')
-                .setDescription('Donne une règle Opquast par numéro')
+                .setDescription('Poste une règle Opquast par numéro')
                 .addIntegerOption(option =>
                     option
                         .setName('number')
-                        .setDescription('Quel numéro de règle Opquast ?')
+                        .setDescription('Le numéro de règle')
                         .setRequired(true))
                 .addStringOption(option =>
                     option
                         .setName('langue')
-                        .setDescription('Dans quelle langue afficher la règle Opquast ?')
+                        .setDescription('Dans quelle langue ?')
                         .addChoice('français', 'fr')
                         .addChoice('english', 'en')
                         .addChoice('español', 'es')
@@ -26,11 +26,11 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('random')
-                .setDescription('Publie une règle choisie aléatoirement')
+                .setDescription('Poste une règle aléatoire')
                 .addStringOption(option =>
                     option
                         .setName('thème')
-                        .setDescription('Afficher une règle issue de quel thème ?')
+                        .setDescription('Choisir un thème')
                         .addChoice('Contenus', 'Content')
                         .addChoice('Données personnelles', 'Personal data')
                         .addChoice('E-Commerce', 'E-Commerce')
@@ -49,7 +49,7 @@ module.exports = {
                 .addStringOption(option =>
                     option
                         .setName('langue')
-                        .setDescription('Dans quelle langue afficher la règle Opquast ?')
+                        .setDescription('Dans quelle langue ?')
                         .addChoice('français', 'fr')
                         .addChoice('english', 'en')
                         .addChoice('español', 'es')

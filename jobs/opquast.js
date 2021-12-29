@@ -8,6 +8,7 @@ module.exports = {
         const ruleId = Publisher.getUnusedRuleId();
         try {
             channel.send(Publisher.getFormatedMessage(ruleId));
+            console.log(`executing scheduled job -> ${this.description}`);
             Publisher.updateHistory(ruleId);
         } catch (e) {
             console.error(e);
