@@ -1,10 +1,10 @@
 module.exports = {
     name: 'messageCreate',
     execute(message) {
-        const opquastRegex = /opquast/i;
+        const opquastRegex = /opquast|bot/i;
         try {
             if (opquastRegex.exec(message)) {
-                console.log(`message matching 'opquast' was created by ${message.author.tag} -> "${message}"`);
+                console.log(`message matching regex ${opquastRegex} was sent by ${message.author.tag} -> "${message}"`);
                 message.react('👀')
             }
         } catch (error) {
