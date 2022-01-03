@@ -60,7 +60,7 @@ class Publisher {
             "footer": new MessageAttachment('./asset/img/opquast-favicon.png')
         };
         const embed = new MessageEmbed()
-            .setColor('#229a9a')
+            .setColor('#2f4554')
             .setTitle(`${rule.number}) ${rule.description[lang]}`)
             .setThumbnail(`attachment://${themaSprites[rule.thema[0].en]}`)
             .setDescription(`:memo: **${rule.thema[0][lang] !== '' ? rule.thema[0][lang] : rule.thema[0].en}**`)
