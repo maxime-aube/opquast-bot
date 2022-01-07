@@ -65,7 +65,7 @@ class Publisher {
             .setThumbnail(`attachment://${themaSprites[rule.thema[0].en]}`)
             .setDescription(`:memo: **${rule.thema[0][lang] !== '' ? rule.thema[0][lang] : rule.thema[0].en}**`)
             .setURL(`${checklistURL[lang] + rule.slug[lang]}`)
-            .addField(`${lang === 'fr' ? 'Objectifs' : 'Goals'}`, `‣ ${(rule.goal[lang].join('\n‣ '))}`)
+            .addField(`${lang === 'fr' ? 'Objectifs' : 'Goals'}`, `‣ ${rule.goal[lang].length > 0 ? (rule.goal[lang].join('\n‣ ')) : rule.goal.en.join('\n‣ ')}`)
             // .addField('Steps', 'Some value here') /* todo ajouter steps */
             .setTimestamp()
             .setFooter(`Brought to you by OpquastBot·🎓\nCredit : Elie Sloïm, Laurent Denis and Opquast contributors\nLicence : Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)`, 'attachment://opquast-favicon.png');
