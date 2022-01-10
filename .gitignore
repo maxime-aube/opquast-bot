@@ -1,6 +1,6 @@
 node_modules
 config.json
-publication-history.json
+history/*.json
 
 ## Auto generated
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,node

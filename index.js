@@ -1,11 +1,15 @@
 /* import stuff section... */
 const fs = require('fs');
+const CronJobManager = require('cron-job-manager');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
 /* define client, aka the bot */
 console.log('creating bot...');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
+
+/* attach cron manager to client. Use it in events and commands to manage scheduled publications. */
+client.scheduler = new CronJobManager();
 
 /* define bot commands */
 console.log('defining bot commands...');

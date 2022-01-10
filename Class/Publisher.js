@@ -28,16 +28,17 @@ class Publisher {
 
     /**
      * return random unpublished rule id
+     * TODO : refactor according to clearHistory() writing empty files
      */
-    static getUnusedRuleId() {
-        const history = JSON.parse(fs.readFileSync('./publication-history.json', 'utf-8'));
+    static getUnusedRuleId(historyFileName) {
+        const history = JSON.parse(fs.readFileSync(`history/${historyFileName}`, 'utf-8'));
         let unusedRules = [];
         for (let entry in history) {
             if (history[entry] === 0) unusedRules.push(entry);
         }
         if (unusedRules.length === 0) {
-            this.clearHistory();
-            return this.getUnusedRuleId();
+            this.clearHistory(); // ajouter le nom de fichier en paramètre
+            return this.getUnusedRuleId(historyFileName);
         }
         return unusedRules[((min = 0, max = (unusedRules.length - 1)) => {
             return Math.floor(Math.random() * (max - min + 1)) + min
@@ -80,32 +81,33 @@ class Publisher {
     }
 
     /**
-     * update publication history with given rule
+     * update publication history : increment given rule's pub count
      */
-    static updateHistory(rule) {
+    static updateHistory(historyFileName, rule) {
 
-        let history = JSON.parse(fs.readFileSync('./publication-history.json', 'utf-8'));
+        let history = JSON.parse(fs.readFileSync(`history/${historyFileName}`, 'utf-8'));
 
         if (history[rule] == null) history[rule] = 1;
         else history[rule] += 1;
 
         try {
-            fs.writeFileSync('./publication-history.json', JSON.stringify(history, null, 2), 'utf-8');
-            console.log(`Successfully updated publication history with rule n°${rule}.`)
+            fs.writeFileSync(`history/${historyFileName}`, JSON.stringify(history, null, 2), 'utf-8');
+            console.log(`Successfully updated publication history with rule n°${rule}.`);
         } catch(e) {
             console.error(e);
         }
     }
 
     /**
-     * remet le compteur à zéro pour toutes les règles dans publication-history.json
+     * reset channel's publication history
+     * TODO : writing over 2kB of unnecessary data. replace with empty json
      */
-    static clearHistory() {
+    static clearHistory(historyFileName) {
         let history = {};
         for (let i = 1; i <= 240; i++) history[i] = 0;
         try {
-            fs.writeFileSync('./publication-history.json', JSON.stringify(history, null, 2), 'utf-8');
-            console.log('Successfully cleared publication history !')
+            fs.writeFileSync(`./history/${historyFileName}`, JSON.stringify(history, null, 2), 'utf-8');
+            console.log(`Successfully wrote clear publication history in history/${historyFileName}`);
         } catch (e) {
             console.error(e);
         }

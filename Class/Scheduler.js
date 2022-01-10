@@ -1,8 +1,10 @@
 const cron = require("cron");
+const {Collection} = require("discord.js");
 
 class Scheduler {
+
     constructor() {}
-    jobList = [];
+
     addJob(job, channel) {
         /* define cron job for scheduled publications */
         console.log(`Scheduling "${job.description}"...`);
@@ -11,7 +13,6 @@ class Scheduler {
         });
         try {
             cronJob.start();
-            this.jobList.push(cronJob);
             console.log(`"${job.description}" successfully scheduled !`);
         } catch (e) {
             console.log(e);
