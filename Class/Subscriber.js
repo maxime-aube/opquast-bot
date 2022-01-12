@@ -1,5 +1,6 @@
 const fs = require("fs");
 const {Publisher} = require("./Publisher");
+const {Scheduler} = require("./Scheduler");
 
 class Subscriber {
 
@@ -8,28 +9,34 @@ class Subscriber {
     /**
      * subscribe channel to publications
      */
-    static subscribe(guildId, channelId, overrideHistory = false) {
-        if (guildId === '' || channelId === '') throw new Error('Called Subscriber.subscribe() with empty guildId or channelId.');
+    static subscribe(client, guild, channel, overrideHistory = false) {
+        //register event's guild's specified channel to subscribers
+        if (guild.id === '' || channel.id === '') throw new Error('Called Subscriber.subscribe() with empty guildId or channelId.');
         const subscriptions = JSON.parse(fs.readFileSync('./publication-subscriptions.json', 'utf-8'));
-        subscriptions[guildId] = channelId;
+        if (!subscriptions[guild.id]) {
+            subscriptions[guild.id] = { "channelId": channel.id };
+        } else {
+            subscriptions[guild.id].channelId = channel.id;
+        }
+
         fs.writeFileSync('./publication-subscriptions.json', JSON.stringify(subscriptions, null, 2), 'utf-8');
-        console.log(`Subscribed channel ${channelId} to publications`);
-        if (overrideHistory) this.makeHistory(guildId);
+        if (overrideHistory) this.makeHistory(guild.id);
+        console.log(`Subscribed channel ${channel.id} to publications`);
     }
 
     /**
      * unsubscribe channel from publications
      */
-    static unsubscribe(guildId, deleteHistory = true) {
-        if (guildId === '') throw new Error('Called Subscriber.unsubscribe() with empty guildId.');
+    static unsubscribe(client, guild, deleteHistory = true) {
+        if (guild.id === '') throw new Error('Called Subscriber.unsubscribe() with empty guildId.');
         const subscriptions = JSON.parse(fs.readFileSync('./publication-subscriptions.json', 'utf-8'));
-        const channelId = subscriptions[guildId];
-        delete subscriptions[guildId];
+        const channelId = subscriptions[guild.id];
+        delete subscriptions[guild.id];
         fs.writeFileSync('./publication-subscriptions.json', JSON.stringify(subscriptions, null, 2), 'utf-8');
         console.log(`Unsubscribed channel ${channelId} from publications`);
         if (deleteHistory) {
             try {
-                fs.unlinkSync(`history/${guildId}.json`);
+                fs.unlinkSync(`history/${guild.id}.json`);
                 console.log(`Deleted channel ${channelId}'s publication history`);
             } catch (e) {
                 console.log(`Failed to delete ${channelId}'s publication history : ${e.message}`);

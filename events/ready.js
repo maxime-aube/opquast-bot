@@ -6,23 +6,14 @@ module.exports = {
     name: 'ready',
     once: true,
     execute(client) {
-        /* Get the Opquast channel to use in scheduled publications */
-        // TODO execute on each subscribed channel
-        client.channels.fetch(channels.opquast.id)
+        const subscriptions = JSON.parse(fs.readFileSync('./publication-subscriptions.json', 'utf-8')); //channels to be used in scheduled publications
+        for (const subscribedGuildId in subscriptions) {
+            client.channels.fetch(subscriptions[subscribedGuildId].channelId)
             .then(channel => {
-                console.log(`Successfully loaded ${channel.name} channel !`);
-
-                /* scheduler publications */
-                const scheduler = new Scheduler();
-                const scheduleFiles = fs.readdirSync('./jobs').filter(file => file.endsWith('.js'));
-                for (const file of scheduleFiles) {
-                    const job = require(`../jobs/${file}`);
-                    scheduler.addJob(job, channel);
-                }
-                console.log(`${client.user.tag} is ready to Opquast !`);
+                Scheduler.addJob(client, channel.guild, channel, subscriptions[subscribedGuildId].cronTime); //new scheduled task
             })
-            .catch(error => {
-                console.error(error)
-            });
+            .catch(e => console.log(e));
+        }
+        console.log(`${client.user.tag} is ready to Opquast !`);
     },
 };
