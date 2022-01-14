@@ -24,29 +24,34 @@ module.exports = {
     async execute(interaction, client) {
         if (!interaction.isCommand()) return;
         if (Subscriber.isSubscribed(interaction.guildId)) {
-            // TODO : also update publication-subscriptions.json file accordingly
             try {
                 Scheduler.deleteJob(client, interaction.guild);
                 if (interaction.options.getString('fréquence') === 'pause') {
+                    Scheduler.updateSchedule(interaction.guild, '');
                     await interaction.reply({
-                        content: `Publications paused.`
+                        content: `Publications paused.`,
+                        ephemeral: true
                     });
                 } else {
+                    Scheduler.updateSchedule(interaction.guild, interaction.options.getString('fréquence'));
                     Scheduler.addJob(client, interaction.guild, interaction.channel, interaction.options.getString('fréquence'));
                     await interaction.reply({
-                        content: `Updated publication schedule to ${interaction.options.getString('fréquence')}.`
+                        content: `Updated publication schedule to ${interaction.options.getString('fréquence')}.`,
+                        ephemeral: true
                     });
                 }
 
             } catch (e) {
                 console.log(e);
                 await interaction.reply({
-                    content: `Sorry, there was an error with scheduling publications.`
+                    content: `Sorry, there was an error with rescheduling publications.`,
+                    ephemeral: true
                 });
             }
         } else {
             await interaction.reply({
-                content: `This channel isn't subscribed to publication. Please run /subscribe before scheduling.`
+                content: `This channel isn't subscribed to publication. Please run /subscribe before scheduling.`,
+                ephemeral: true
             });
         }
     },

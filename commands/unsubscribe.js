@@ -14,17 +14,20 @@ module.exports = {
                 Scheduler.deleteJob(client, interaction.guild);
                 Subscriber.unsubscribe(client, interaction.guild, true);
                 await interaction.reply({
-                    content: `Unsubscribed this channel from publications.`
+                    content: `Unsubscribed this channel from publications.`,
+                    ephemeral: true
                 });
             } catch (e) {
                 await interaction.reply({
-                    content: `Sorry, there was an error with unsubscribing this channel.`
+                    content: `Sorry, there was an error with unsubscribing this channel.`,
+                    ephemeral: true
                 });
                 console.log(e);
             }
         } else {
             await interaction.reply({
-                content: `Channel was not subscribed to publications.`
+                content: `Channel was not subscribed to publications.`,
+                ephemeral: true
             });
         }
     },
