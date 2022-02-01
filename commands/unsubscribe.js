@@ -3,6 +3,7 @@ const {Subscriber} = require("../Class/Subscriber");
 const {Scheduler} = require("../Class/Scheduler");
 
 module.exports = {
+    defaultPermission: false,
     data: new SlashCommandBuilder()
         .setName('unsubscribe')
         .setDescription(`Désactive les publications Opquast de ce salon.`),

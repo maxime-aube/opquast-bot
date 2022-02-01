@@ -4,6 +4,7 @@ const {Scheduler} = require("../Class/Scheduler");
 const fs = require("fs");
 
 module.exports = {
+    defaultPermission: false,
     data: new SlashCommandBuilder()
         .setName('schedule')
         .setDescription(`Règle la fréquence des publications`)
