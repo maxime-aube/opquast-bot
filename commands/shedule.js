@@ -5,8 +5,7 @@ const fs = require("fs");
 
 module.exports = {
     defaultPermission: false,
-    data:
-    new SlashCommandBuilder()
+    data: new SlashCommandBuilder()
         .setName('schedule')
         .setDescription(`Règle la fréquence des publications`)
         .addStringOption(option =>
