@@ -9,7 +9,6 @@ module.exports = {
         } else {
             commandName = interaction.commandName;
         }
-        console.log(commandName);
         const command = interaction.client.commands.get(commandName);
         if (!command) {
             interaction.reply({
@@ -26,12 +25,23 @@ module.exports = {
             console.log(`${interaction.user.tag} triggered a button interaction in #${interaction.channel.name} > /${commandName} with "${interaction.customId}"`);
         }
 
-        try {
-            command.execute(interaction, interaction.client);
-        } catch (error) {
-            interaction.reply({ content: 'Whoops ! la commande a échoué 🤷', ephemeral: true });
-            console.error(error);
+        if (!interaction.member.permissions.has(command.permissions || [])) {
+            interaction.reply({
+                content: `You do not have permission to execute this command`,
+                ephemeral: true
+            });
+        } else {
+            try {
+                command.execute(interaction, interaction.client);
+            } catch (error) {
+                interaction.reply({
+                    content: 'Whoops ! la commande a échoué 🤷',
+                    ephemeral: true
+                });
+                console.error(error);
+            }
         }
+
     }
 
 };

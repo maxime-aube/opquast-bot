@@ -1,8 +1,11 @@
+const { Permissions } = require('discord.js');
+
 module.exports = {
     name: 'guildCreate',
-    execute (guild, client) {
-        console.log(guild.client); //TODO test guild.client (if ok, remove client parameter)
+    execute (guild) {
         console.log("Joined a new guild: " + guild.name);
-        //console.log(client.guilds.cache);
+
+        // console.log(guild.roles.create({ name: 'Opquast'}));
+        console.log(guild.roles);
     }
 };

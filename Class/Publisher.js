@@ -60,17 +60,6 @@ class Publisher {
             "thumbnail": new MessageAttachment(`./asset/img/${themaSprites[rule.thema[0].en]}`),
             "footer": new MessageAttachment('./asset/img/opquast-favicon.png')
         };
-        const embed = new MessageEmbed()
-            .setColor('#2f4554')
-            .setTitle(`${rule.number}) ${rule.description[lang]}`)
-            .setThumbnail(`attachment://${themaSprites[rule.thema[0].en]}`)
-            .setDescription(`:memo: **${rule.thema[0][lang] !== '' ? rule.thema[0][lang] : rule.thema[0].en}**`)
-            .setURL(`${checklistURL[lang] + rule.slug[lang]}`)
-            .addField(`${lang === 'fr' ? 'Objectifs' : 'Goals'}`, `‣ ${rule.goal[lang].length > 0 ? (rule.goal[lang].join('\n‣ ')) : rule.goal.en.join('\n‣ ')}`)
-            // .addField('Steps', 'Some value here') /* todo add steps attribute from checklist */
-            .setTimestamp()
-            .setFooter(`Brought to you by OpquastBot·🎓\nCredit : Elie Sloïm, Laurent Denis and Opquast contributors\nLicence : Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)`, 'attachment://opquast-favicon.png');
-
         return {
             embeds: [embed],
             files: [
@@ -78,7 +67,21 @@ class Publisher {
                 embedFiles.footer
             ]
         };
+
+        const embed = new MessageEmbed()
+            .set
+            .setColor('#2f4554')
+            .setTitle(`${rule.number}) ${rule.description[lang]}`)
+            .setThumbnail(`attachment://${themaSprites[rule.thema[0].en]}`)
+            .setDescription(`:memo: **${rule.thema[0][lang] !== '' ? rule.thema[0][lang] : rule.thema[0].en}**`)
+            .setURL(`${checklistURL[lang] + rule.slug[lang]}`)
+            .addField(`${lang === 'fr' ? 'Objectifs' : 'Goals'}`, `‣ ${rule.goal[lang].length > 0 ? (rule.goal[lang].join('\n‣ ')) : rule.goal.en.join('\n‣ ')}`)
+            // .addField('Steps', 'Some value here') /* todo add steps attribute from checklist */
+            .setFooter(`Brought to you by OpquastBot·🎓\nCredit : Elie Sloïm, Laurent Denis and Opquast contributors\nLicence : Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)`, 'attachment://opquast-favicon.png')
+            .setTimestamp()
+        ;
     }
+
 
     /**
      * update publication history : increment given rule's pub count

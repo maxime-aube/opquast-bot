@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { clientId, token } = require('./config.json');
@@ -23,3 +22,13 @@ const rest = new REST().setToken(token);
         console.error(error);
     }
 })();
+
+
+
+
+
+
+
+
+
+

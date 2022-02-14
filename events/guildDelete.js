@@ -1,8 +1,8 @@
 module.exports = {
     name: 'guildDelete',
-    execute (guild, client) {
-        console.log(guild.client); //TODO test guild.client (if ok, remove client parameter)
+    execute (guild) {
         console.log("Left a guild: " + guild.name);
-        client.scheduler.deleteJob(`${guild.id}-publish`);
+        guild.client.scheduler.deleteJob(`${guild.id}-publish`);
+        //todo remove from publication-subscriptions.json
     }
 };
