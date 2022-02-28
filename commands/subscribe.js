@@ -4,9 +4,9 @@ const {Subscriber} = require("../Class/Subscriber");
 const {Scheduler} = require("../Class/Scheduler");
 
 module.exports = {
-    defaultPermission: false,
     data: new SlashCommandBuilder()
         .setName('subscribe')
+        .setDefaultPermission(false)
         .setDescription(`Active les publications Opquast dans ce salon.`),
 
     async execute(interaction, client) {

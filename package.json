@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js --ignore 'publication-subscriptions.json' --ignore 'history/*.json'",
-    "clear-history": "node clear-publication-history.js"
+    "clear-history": "node scripts/clear-publication-history.js"
   },
   "keywords": [],
   "author": "",
