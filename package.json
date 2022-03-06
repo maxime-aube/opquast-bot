@@ -7,16 +7,29 @@
     "start": "nodemon index.js --ignore 'publication-subscriptions.json' --ignore 'history/*.json'",
     "clear-history": "node scripts/clear-publication-history.js"
   },
-  "keywords": ["bot", "discord", "discordjs", "node", "opquast", "web", "quality", "pedagogic", "unofficial"],
+  "keywords": [
+    "bot",
+    "discord",
+    "discordjs",
+    "node",
+    "opquast",
+    "web",
+    "quality",
+    "pedagogic",
+    "unofficial"
+  ],
   "author": "maximob",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^13.3.1",
     "@discordjs/builders": "^0.9.0",
     "@discordjs/rest": "^0.2.0-canary.0",
     "cron-job-manager": "^2.2.1",
     "discord-api-types": "^0.25.2",
+    "discord.js": "^13.3.1",
     "nodemon": "^2.0.15",
     "winston": "^3.3.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0"
   }
 }

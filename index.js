@@ -40,6 +40,6 @@ client
     .login(token)
     .then(() => console.log(`${client.user.tag} successfully logged into server !`))
     .catch(error => {
-        console.log(error)
+        console.log(error);
     })
 ;
