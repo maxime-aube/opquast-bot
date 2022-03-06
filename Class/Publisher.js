@@ -28,18 +28,21 @@ class Publisher {
 
     /**
      * return random unpublished rule id
-     * TODO : refactor according to clearHistory() writing empty files
      */
     static getUnusedRuleId(historyFileName) {
+
         const history = JSON.parse(fs.readFileSync(`history/${historyFileName}`, 'utf-8'));
         let unusedRules = [];
-        for (let entry in history) {
-            if (history[entry] === 0) unusedRules.push(entry);
+        for (let i = 1; i <= 240; i++) {
+            if (i in history) continue;
+            unusedRules.push(i);
         }
+
         if (unusedRules.length === 0) {
-            this.clearHistory(); // ajouter le nom de fichier en paramètre
+            this.clearHistory(historyFileName);
             return this.getUnusedRuleId(historyFileName);
         }
+
         return unusedRules[((min = 0, max = (unusedRules.length - 1)) => {
             return Math.floor(Math.random() * (max - min + 1)) + min
         })()];
@@ -47,10 +50,6 @@ class Publisher {
 
     /**
      * return formatted message content with given or random rule
-     * @param ruleId
-     * @param lang
-     * @param thema
-     * @returns {{content: string}}
      */
     static getFormatedMessage(ruleId = false, lang = 'fr', theme = null) {
 
@@ -60,16 +59,8 @@ class Publisher {
             "thumbnail": new MessageAttachment(`./asset/img/${themaSprites[rule.thema[0].en]}`),
             "footer": new MessageAttachment('./asset/img/opquast-favicon.png')
         };
-        return {
-            embeds: [embed],
-            files: [
-                embedFiles.thumbnail,
-                embedFiles.footer
-            ]
-        };
 
         const embed = new MessageEmbed()
-            .set
             .setColor('#2f4554')
             .setTitle(`${rule.number}) ${rule.description[lang]}`)
             .setThumbnail(`attachment://${themaSprites[rule.thema[0].en]}`)
@@ -80,6 +71,14 @@ class Publisher {
             .setFooter(`Brought to you by OpquastBot·🎓\nCredit : Elie Sloïm, Laurent Denis and Opquast contributors\nLicence : Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)`, 'attachment://opquast-favicon.png')
             .setTimestamp()
         ;
+
+        return {
+            embeds: [embed],
+            files: [
+                embedFiles.thumbnail,
+                embedFiles.footer
+            ]
+        };
     }
 
 
@@ -103,11 +102,9 @@ class Publisher {
 
     /**
      * reset channel's publication history
-     * TODO : writing over 2kB of unnecessary data. replace with empty json
      */
     static clearHistory(historyFileName) {
         let history = {};
-        for (let i = 1; i <= 240; i++) history[i] = 0;
         try {
             fs.writeFileSync(`./history/${historyFileName}`, JSON.stringify(history, null, 2), 'utf-8');
             console.log(`Successfully wrote clear publication history in history/${historyFileName}`);
