@@ -12,6 +12,9 @@ class Subscriber {
         return JSON.parse(fs.readFileSync('./publication-subscriptions.json', 'utf-8'));
     }
 
+    /**
+     * Subscribe a channel to publications
+     */
     static setSubscribedChannel(channel) {
         const subscriptions = this.getSubscriptions();
         if (!subscriptions[channel.guild.id]) subscriptions[channel.guild.id] = { "channelId": channel.id };

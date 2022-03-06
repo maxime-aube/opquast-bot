@@ -48,7 +48,7 @@ client.login(token).then(() => {
 
             if (!role) {
                 console.warn(`   guild (${guild}) >> pas de role Opquast-Mod`);
-                // todo => créer le rôle Opquast-Mod dans le guildCreate + notifier échec de mise à jour des permissions
+                // todo => notifier échec de mise à jour des permissions
                 return;
             }
 
