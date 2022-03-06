@@ -53,24 +53,28 @@ module.exports = {
                                 .setStyle('DANGER'),
                         );
                     await interaction.reply({
-                        content: `This guild has another channel already subscribed (${subscribedChannel}). Do you want to move subscriptions to this channel instead ? (publication history will be passed on)`,
+                        content: `This guild has another channel already subscribed (${subscribedChannel}). Do you want to move subscriptions to this channel instead ? (publication history will be transferred)`,
                         components: [row],
                         ephemeral: true
                     });
                 }
             }
 
-        // button interaction (migration)
+        // channel migration's button interaction
         } else {
+
             if (interaction.customId === 'yes') {
-                const oldChannel = await Subscriber.getSubscribedChannel(client, interaction.guild);
-                Subscriber.setSubscribedChannel(interaction.channel);
-                // TODO stop old channel's cron job and start a new cron in newly subscribed channel
+
+                Subscriber.setSubscribedChannel(interaction.channel); // update guild's subscribed channel
+                Scheduler.deleteJob(client, interaction.guild) // stop old channel's cron job
+                Scheduler.addJob(client, interaction.guild, interaction.channel); // start new channel's cron job
+
                 await interaction.update({
                     content: `Publications moved from ${oldChannel} to this channel.`,
                     components: [],
                     ephemeral: true
                 });
+
             } else if (interaction.customId === 'no') {
                 await interaction.update({
                     content: `Didn't move publications.`,
