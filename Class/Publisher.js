@@ -29,9 +29,9 @@ class Publisher {
     /**
      * return random unpublished rule id
      */
-    static getUnusedRuleId(historyFileName) {
+    static getUnusedRuleId(guildId) {
 
-        const history = JSON.parse(fs.readFileSync(`history/${historyFileName}`, 'utf-8'));
+        const history = JSON.parse(fs.readFileSync(`history/${guildId}.json`, 'utf-8'));
         let unusedRules = [];
         for (let i = 1; i <= 240; i++) {
             if (i in history) continue;
@@ -39,8 +39,8 @@ class Publisher {
         }
 
         if (unusedRules.length === 0) {
-            this.clearHistory(historyFileName);
-            return this.getUnusedRuleId(historyFileName);
+            this.clearHistory(guildId);
+            return this.getUnusedRuleId(guildId);
         }
 
         return unusedRules[((min = 0, max = (unusedRules.length - 1)) => {
@@ -103,11 +103,11 @@ class Publisher {
     /**
      * reset channel's publication history
      */
-    static clearHistory(historyFileName) {
+    static clearHistory(guildId) {
         let history = {};
         try {
-            fs.writeFileSync(`./history/${historyFileName}`, JSON.stringify(history, null, 2), 'utf-8');
-            console.log(`Successfully cleared publication history (${historyFileName})`);
+            fs.writeFileSync(`./history/${guildId}.json`, JSON.stringify(history, null, 2), 'utf-8');
+            console.log(`Successfully cleared publication history (${guildId}.json)`);
         } catch (e) {
             console.error(e);
         }

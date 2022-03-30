@@ -6,7 +6,7 @@ module.exports = {
     name: 'publish',
     description: 'Publish Opquast rules regularly',
     execute (channel) {
-        const ruleId = Publisher.getUnusedRuleId(`${channel.guildId}.json`);
+        const ruleId = Publisher.getUnusedRuleId(`${channel.guildId}`);
         try {
             channel.send(Publisher.getFormatedMessage(ruleId));
             console.log(`executing scheduled job -> ${this.description}`);

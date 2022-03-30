@@ -86,7 +86,7 @@ class Subscriber {
     static makeHistory(guildId) {
         fs.writeFileSync(`./history/${guildId}.json`, JSON.stringify({}, null, 2), 'utf-8');
         console.log(`created history/${guildId}.json history file`);
-        Publisher.clearHistory(`${guildId}.json`); //writing clean history to generated file
+        Publisher.clearHistory(`${guildId}`); //writing clean history to generated file
     }
 }
 

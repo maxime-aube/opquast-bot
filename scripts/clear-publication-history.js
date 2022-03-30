@@ -6,5 +6,5 @@ const {Publisher} = require("../Class/Publisher");
  */
 
 process.argv.slice(2).forEach(guildId => {
-    Publisher.clearHistory(`${guildId}.json`);
+    Publisher.clearHistory(`${guildId}`);
 });
