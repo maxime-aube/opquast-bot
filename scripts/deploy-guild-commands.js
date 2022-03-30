@@ -1,83 +1,29 @@
-const fs = require('fs');
 const {Client, Intents} = require('discord.js');
-const { Routes } = require('discord-api-types/v9');
-const { REST } = require('@discordjs/rest');
 const { token } = require('../config.json');
+const {CommandDeployer} = require("../Class/CommandDeployer");
 
-const rest = new REST().setToken(token);
+/*
+    run with parameter -> example with guild id :
+    npm run deploy-commands -- 912838027062177843
+ */
+
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-// used to register/update guild commands
-async function registerGuildCommands(client, guild) {
-
-    const commands = [];
-    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-    for (const file of commandFiles) {
-        const command = require(`../commands/${file}`);
-        commands.push(command.data.toJSON());
-    }
-
-    try {
-        await rest.put(Routes.applicationGuildCommands(client.user.id, guild.id), { body: commands });
-    } catch (error) {
-        console.error(error);
-    }
+// fetch guilds with an array of guilds id
+function getGuilds(idArr) {
+    let guilds = [];
+    idArr.forEach(guildId => guilds.push(client.guilds.cache.get(guildId)));
+    return guilds;
 }
 
 client.login(token).then(() => {
 
     console.log(`   Connected (client id = ${client.user.id})`);
 
-    // update all guilds (commands & permissions)
-    client.guilds.cache.forEach(guild => {
+    // use guilds provided as arguments in command or use guilds.cache
+    const guilds = process.argv.slice(2).length > 0 ? getGuilds(process.argv.slice(2)) : client.guilds.cache;
 
-        // first -> update guild's commands
-        registerGuildCommands(client, guild).then(() => {
-            console.log(`   Successfully updated guild (${guild}) slash commands.`);
-        })
-        .catch(e => {
-            console.log(e); // command registering error
-        });
-
-        // then -> loop through guild's slash commands
-        console.log(`   Refreshing guild (${guild.name}) commands.`)
-        guild.commands.fetch().then(commands => {
-
-            let role = guild.roles.cache.find(role => role.name === "Opquast-Mod");
-
-            if (!role) {
-                console.warn(`   guild (${guild}) >> pas de role Opquast-Mod`);
-                // todo => notifier échec de mise à jour des permissions
-                return;
-            }
-
-            console.log(`   guild (${guild}) >> role ${role.name} (${role.id})`);
-            let fullPermissions = [];
-
-            commands.forEach(command => {
-                if (!command.defaultPermission) {
-                    fullPermissions.push({
-                        id: command.id,
-                        permissions: [{
-                            id: role.id,
-                            type: 'ROLE',
-                            permission: true
-                        }]
-                    });
-                }
-            });
-
-            guild.commands.permissions.set({ fullPermissions }).then(fullPermissions => {
-                // todo => log applied fullPermissions
-                console.log(`   Successfully updated guild (${guild}) command permissions`);
-            }).catch(e => {
-                console.log(e);
-            }).finally(() => {
-                client.destroy(); // logout
-            });
-        });
-    });
+    CommandDeployer.deployCommands(client, guilds, true); // deploy commands
 })
 .catch(e => {
     console.log(e) // client connexion error

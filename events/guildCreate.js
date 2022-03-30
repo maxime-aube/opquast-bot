@@ -1,8 +1,9 @@
 const { Permissions } = require('discord.js');
+const {CommandDeployer} = require("../Class/CommandDeployer");
 
 module.exports = {
     name: 'guildCreate',
-    execute (guild) {
+    execute (guild, client) {
         console.log("Joined a new guild: " + guild.name);
 
         // create role Opquast-Mod
@@ -16,6 +17,8 @@ module.exports = {
             console.log(roles);
         });
 
-        // todo deploy guild commands with permissions
+        // deploy commands to new guild
+        CommandDeployer.deployCommands(client, [guild]);        // todo => test deploy
+
     }
 };

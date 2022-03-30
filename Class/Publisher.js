@@ -107,7 +107,7 @@ class Publisher {
         let history = {};
         try {
             fs.writeFileSync(`./history/${historyFileName}`, JSON.stringify(history, null, 2), 'utf-8');
-            console.log(`Successfully wrote clear publication history in history/${historyFileName}`);
+            console.log(`Successfully cleared publication history (${historyFileName})`);
         } catch (e) {
             console.error(e);
         }

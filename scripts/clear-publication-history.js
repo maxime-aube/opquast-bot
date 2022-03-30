@@ -1,5 +1,10 @@
 const {Publisher} = require("../Class/Publisher");
 
-Publisher.clearHistory();
+/*
+    run with parameter -> example with guild id :
+    npm run clear-history -- 912838027062177843
+ */
 
-// todo => ajouter un paramètre pour la commande npm (specify guild id)
+process.argv.slice(2).forEach(guildId => {
+    Publisher.clearHistory(`${guildId}.json`);
+});

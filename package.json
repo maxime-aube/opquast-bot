@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js --ignore 'publication-subscriptions.json' --ignore 'history/*.json'",
+    "deploy-commands": "node scripts/deploy-guild-commands.js",
     "clear-history": "node scripts/clear-publication-history.js"
   },
   "keywords": [
