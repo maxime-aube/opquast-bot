@@ -1,10 +1,9 @@
-const {Client, Intents} = require('discord.js');
+const { Client, Intents } = require('discord.js');
 const { token } = require('../config.json');
-const {CommandDeployer} = require("../Class/CommandDeployer");
+const { CommandDeployer } = require("../Class/CommandDeployer");
 
 /*
-    run with parameter -> example with guild id :
-    npm run deploy-commands -- 912838027062177843
+    runs with parameter -> example with guild id : npm run deploy-commands -- 912838027062177843
  */
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });

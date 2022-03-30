@@ -12,14 +12,10 @@ class CommandDeployer {
      */
     static deployCommands(client, guilds, disconnectAfter = false) {
 
-        // todo => disconnect after if true
-        //client.destroy();
-
-
         // update all guilds (commands & permissions)
         guilds.forEach(guild => {
 
-            // first -> update guild's commands
+            // first -> update (or create if new guild) guild commands
             this.registerGuildCommands(client, guild).then(() => {
                 console.log(`   Successfully updated guild (${guild}) slash commands.`);
             })
@@ -27,14 +23,13 @@ class CommandDeployer {
                 console.log(e); // command registering error
             });
 
-            // then -> loop through guild's slash commands
+            // THEN (after commands are created) -> loop through guild's slash commands
             console.log(`   Refreshing guild (${guild.name}) commands.`)
             guild.commands.fetch().then(commands => {
 
                 let role = guild.roles.cache.find(role => role.name === "Opquast-Mod");
                 if (!role) {
                     console.warn(`   guild (${guild}) >> pas de role Opquast-Mod`);
-                    // todo => notifier échec de mise à jour des permissions
                     return;
                 }
 
@@ -55,8 +50,8 @@ class CommandDeployer {
                 });
 
                 guild.commands.permissions.set({ fullPermissions }).then(fullPermissions => {
-                    // todo => log applied fullPermissions
                     console.log(`   Successfully updated guild (${guild}) command permissions`);
+                    client.destroy();
                 }).catch(e => {
                     console.log(e);
                 });

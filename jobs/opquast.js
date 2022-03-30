@@ -1,8 +1,8 @@
-const {Publisher} = require("../Class/Publisher");
+const { Publisher } = require("../Class/Publisher");
 
 module.exports = {
     defaultCronTime: '0 0 9,15,21 * * 1-5',
-    // defaultCronTime: '*/10 * * * * 1-5',
+    // defaultCronTime: '*/10 * * * * 1-5', // testing only
     name: 'publish',
     description: 'Publish Opquast rules regularly',
     execute (channel) {

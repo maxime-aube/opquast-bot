@@ -1,5 +1,5 @@
 const fs = require("fs");
-const {Publisher} = require("./Publisher");
+const { Publisher } = require("./Publisher");
 
 class Subscriber {
 

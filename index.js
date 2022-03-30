@@ -4,6 +4,8 @@ const CronJobManager = require('cron-job-manager');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
+// todo => add winston logging
+
 /* define client, aka the bot */
 console.log('creating bot...');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
