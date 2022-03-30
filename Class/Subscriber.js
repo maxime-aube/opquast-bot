@@ -37,13 +37,16 @@ class Subscriber {
      * unsubscribe channel from publications
      */
     static unsubscribe(client, guild, deleteHistory = true) {
-        if (guild.id === '') throw new Error('Called Subscriber.unsubscribe() with empty guildId.');
+        if (guild.id === '') {
+            console.log(`Called Subscriber.unsubscribe() with empty parameter (guildId). Didn't subscribe anything`);
+            return;
+        }
         const subscriptions = this.getSubscriptions();
         const channelId = subscriptions[guild.id];
         delete subscriptions[guild.id];
         fs.writeFileSync('./publication-subscriptions.json', JSON.stringify(subscriptions, null, 2), 'utf-8');
-        console.log(`Unsubscribed channel ${channelId} from publications`);
-        if (deleteHistory) {
+        console.log(channelId !== undefined ? `Unsubscribed channel ${channelId} from publications` : `Guild (${guild.id}) didn't have a subscribed channel. No subscription to cancel.${deleteHistory ? 'No history to delete.' : ''}`);
+        if (deleteHistory && channelId !== undefined) {
             try {
                 fs.unlinkSync(`history/${guild.id}.json`);
                 console.log(`Deleted channel ${channelId}'s publication history`);

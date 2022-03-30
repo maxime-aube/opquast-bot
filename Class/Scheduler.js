@@ -30,10 +30,15 @@ class Scheduler {
 
     /* delete cron job */
     static deleteJob(client, guild) {
-        try {
-            client.scheduler.deleteJob(`${guild.id}-publish`); //dynamically get job name ?
-        } catch (e) {
-            console.log(e);
+        const job = this.getJob(client, guild);
+        if (job !== undefined) {
+            try {
+                client.scheduler.deleteJob(`${guild.id}-publish`);
+            } catch (e) {
+                console.log(e);
+            }
+        } else  {
+            console.log(`Guild (${guild.id}) didn't have a scheduled job. Nothing to delete`);
         }
     }
 

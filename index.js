@@ -2,7 +2,7 @@
 const fs = require('fs');
 const CronJobManager = require('cron-job-manager');
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./config.json');
+const { token } = require('./config.js');
 
 // todo => add winston logging
 
