@@ -5,6 +5,8 @@ const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.js');
 
 // todo => add winston logging
+// todo => add i18n
+// todo => add introduction message on guildCreate ("hello it's me OpquastBot, I do such and such...")
 
 /* define client, aka the bot */
 console.log('creating bot...');

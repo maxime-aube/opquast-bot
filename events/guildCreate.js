@@ -19,7 +19,7 @@ module.exports = {
         // todo => give role Opquast-Mod to guild admins ?
 
         // deploy commands to new guild
-        CommandDeployer.deployCommands(client, [guild]);        // todo => test deploy
+        CommandDeployer.deployCommands(client, [guild]);
 
     }
 };
