@@ -4,7 +4,8 @@
   "description": "Un bot discord pédagogique non officiel pour la certification Opquast (qualité web)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js --ignore 'publication-subscriptions.json' --ignore 'history/*.json'",
+    "dev": "nodemon index.js --ignore 'publication-subscriptions.json' --ignore 'history/*.json'",
+    "start": "node index.js --ignore 'publication-subscriptions.json' --ignore 'history/*.json'",
     "deploy-commands": "node scripts/deploy-guild-commands.js",
     "clear-history": "node scripts/clear-publication-history.js"
   },
@@ -27,10 +28,10 @@
     "cron-job-manager": "^2.2.1",
     "discord-api-types": "^0.25.2",
     "discord.js": "^13.3.1",
-    "nodemon": "^2.0.15",
     "winston": "^3.3.4"
   },
   "devDependencies": {
-    "eslint": "^8.10.0"
+    "eslint": "^8.10.0",
+    "nodemon": "^2.0.15"
   }
 }
