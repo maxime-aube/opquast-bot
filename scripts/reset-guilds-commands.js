@@ -1,6 +1,5 @@
-const fs = require("fs");
-const {Client, Intents} = require("discord.js");
-const {token} = require("../config.js");
+const { Client, Intents } = require('discord.js');
+const { token } = require('../config.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 

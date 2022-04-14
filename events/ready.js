@@ -1,5 +1,5 @@
-const fs = require("fs");
-const { Scheduler } = require("../Class/Scheduler");
+const fs =require('fs');
+const Scheduler = require('../Class/Scheduler');
 
 module.exports = {
     name: 'ready',

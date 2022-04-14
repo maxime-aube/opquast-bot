@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 
 class Scheduler {
 
@@ -75,4 +75,4 @@ class Scheduler {
     }
 }
 
-module.exports = { Scheduler };
+module.exports = Scheduler;

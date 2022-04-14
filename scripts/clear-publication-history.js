@@ -1,4 +1,4 @@
-const { Publisher } = require("../Class/Publisher");
+const Publisher = require('../Class/Publisher');
 
 /*
     run with parameter -> example with guild id :

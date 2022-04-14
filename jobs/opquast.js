@@ -1,4 +1,4 @@
-const { Publisher } = require("../Class/Publisher");
+const { Publisher } = require('../Class/Publisher');
 
 module.exports = {
     defaultCronTime: '0 0 9,15,21 * * 1-5',

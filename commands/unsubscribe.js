@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {Subscriber} = require("../Class/Subscriber");
-const {Scheduler} = require("../Class/Scheduler");
+const Subscriber = require('../Class/Subscriber');
+const Scheduler = require('../Class/Scheduler');
 
 module.exports = {
     data: new SlashCommandBuilder()

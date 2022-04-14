@@ -1,6 +1,6 @@
 const { Client, Intents } = require('discord.js');
 const { token } = require('../config.js');
-const { CommandDeployer } = require("../Class/CommandDeployer");
+const { CommandDeployer } = require('../Class/CommandDeployer');
 
 /*
     runs with parameter -> example with guild id : npm run deploy-commands -- 912838027062177843

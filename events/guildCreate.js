@@ -1,5 +1,4 @@
-const { Permissions } = require('discord.js');
-const { CommandDeployer } = require("../Class/CommandDeployer");
+const CommandDeployer = require('../Class/CommandDeployer');
 
 module.exports = {
     name: 'guildCreate',
@@ -20,6 +19,5 @@ module.exports = {
 
         // deploy commands to new guild
         CommandDeployer.deployCommands(client, [guild]);
-
     }
 };

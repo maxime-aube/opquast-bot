@@ -1,5 +1,5 @@
-const fs = require("fs");
-const { Publisher } = require("./Publisher");
+const fs = require('fs');
+const Publisher = require('./Publisher');
 
 class Subscriber {
 
@@ -93,4 +93,4 @@ class Subscriber {
     }
 }
 
-module.exports = { Subscriber };
+module.exports = Subscriber;

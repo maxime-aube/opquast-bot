@@ -1,11 +1,10 @@
-
 /*
-    AVOID DEPLOYING GLOBALLY
+    AVOID DEPLOYING GLOBALLY. USE GUILD DEPLOY INSTEAD
  */
 
-const fs = require("fs");
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const fs = require('fs');
+const REST = require('@discordjs/rest');
+const Routes = require('discord-api-types/v9');
 const { clientId, token } = require('../config.js');
 
 const commands = [];

@@ -1,6 +1,6 @@
 const fs = require('fs');
-const { Routes } = require('discord-api-types/v9');
-const { REST } = require('@discordjs/rest');
+const Routes = require('discord-api-types/v9');
+const REST = require('@discordjs/rest');
 const { token } = require('../config.js');
 
 class CommandDeployer {
@@ -83,4 +83,4 @@ class CommandDeployer {
     }
 }
 
-module.exports = { CommandDeployer };
+module.exports = CommandDeployer;

@@ -1,7 +1,7 @@
-const fs = require("fs");
+const fs = require('fs');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
-const checklist = require("../checklist.min.json");
-const checklistThema = require("../checklist-thema.json");
+const checklist = require('../checklist.min.json');
+const checklistThema = require('../checklist-thema.json');
 const { checklistURL, themaSprites } = require('../opquast.json');
 
 class Publisher {
@@ -117,4 +117,4 @@ class Publisher {
     }
 }
 
-module.exports = { Publisher };
+module.exports = Publisher;
